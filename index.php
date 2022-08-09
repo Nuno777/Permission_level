@@ -86,7 +86,7 @@
                     Repudiandae minima delectus accusamus accusantium deleniti
                     libero excepturi porro illo.</p>
                   <div data-aos="fade-up" data-aos-delay="100">
-                    <a href="#" target="_blank" class="btn btn-primary mr-2
+                    <a href="#" class="btn btn-primary mr-2
                       mb-2">Get In Touch</a>
                   </div>
                 </div>
