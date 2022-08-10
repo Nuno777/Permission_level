@@ -1,3 +1,43 @@
+<?php
+$email = array_key_exists('email', $_POST) ? $_POST['email'] : "";
+$nome = array_key_exists('nome', $_POST) ? $_POST['nome'] : "";
+$pass = array_key_exists('pass', $_POST) ? $_POST['pass'] : "";
+$msg_erro = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // validar variáveis
+  if ($email == "" || $pass == "" || $nome == "")
+    $msg_erro = "Email, nome ou password não inseridos";
+  else {
+    /* 1: estabelecer ligação à BD */
+    require_once 'conexao.php';
+    if ($conn->connect_errno) {
+      $code = $conn->connect_errno;
+      $message = $conn->connect_error;
+      $msg_erro = "Falha na ligação à BaseDados ($code $message)!";
+    } else {
+      // descontaminar variáveis
+      $email = $conn->real_escape_string($email);
+      $nome = $conn->real_escape_string($nome);
+      // $pass não precisa porque não será usada diretamente na query
+      $pass_hash = hash('sha512', $pass);
+
+      /* 2: executar query... */
+      $query = "INSERT INTO `users` (`email`, `nome`, `pass`) VALUES ('$email', '$nome', '$pass_hash')";
+
+      $sucesso_query = $conn->query($query);
+      if ($sucesso_query) {
+        header("Location: login.php");
+        exit(0);
+      } else {
+        $code = $conn->errno; // error code of the most recent operation
+        $message = $conn->error; // error message of the most recent op.
+        $msg_erro = "Falha na query! ($code $message)";
+      }
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +72,7 @@
             </div>
             <div class="card-body px-5 pb-5 pt-0">
               <h4 class="text-dark text-center mb-5">Sign Up</h4>
-              <form method="POST" action="" enctype="multipart/form-data">
+              <form method="POST" action="register.php" enctype="multipart/form-data">
                 <div class="row">
                   <div class="form-group col-md-12 mb-4">
                     <input type="text" class="form-control input-lg" id="nome" name="nome" aria-describedby="nameHelp" placeholder="Name" required>
