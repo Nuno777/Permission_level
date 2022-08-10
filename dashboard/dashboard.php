@@ -29,7 +29,6 @@ if (!isset($_SESSION['authenticated'])) {
   <script src="assets/plugins/nprogress/nprogress.js"></script>
 </head>
 
-
 <body class="navbar-fixed sidebar-fixed" id="body">
   <script>
     NProgress.configure({
@@ -43,7 +42,7 @@ if (!isset($_SESSION['authenticated'])) {
       <div id="sidebar" class="sidebar sidebar-with-footer">
         <!-- Aplication Brand -->
         <div class="app-brand">
-          <a href="/index.html">
+          <a>
             <img src="assets/images/logo.png" alt="Mono">
             <span class="brand-name">Nome</span>
           </a>
@@ -53,9 +52,9 @@ if (!isset($_SESSION['authenticated'])) {
           <!-- sidebar menu -->
           <ul class="nav sidebar-inner" id="sidebar-menu">
             <li class="active">
-              <a class="sidenav-item-link" href="index.html">
+              <a class="sidenav-item-link" href="#">
                 <i class="mdi mdi-briefcase-account-outline"></i>
-                <span class="nav-text">Business Dashboard</span>
+                <span class="nav-text">List Users</span>
               </a>
             </li>
           </ul>
@@ -77,7 +76,7 @@ if (!isset($_SESSION['authenticated'])) {
               <li class="dropdown user-menu">
                 <button class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <img src="assets/images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                  <span class="d-none d-lg-inline-block">John Doe</span>
+                  <span class="d-none d-lg-inline-block">Nome</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
@@ -110,10 +109,11 @@ if (!isset($_SESSION['authenticated'])) {
         <div class="content">
           <!-- Top -->
           <div class="row">
+
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>$18,699</h2>
+                  <h2>New User</h2>
                   <div class="sub-title">
                     <span class="mr-1">Sales of this year</span> |
                     <span class="mx-1">45%</span>
@@ -130,7 +130,7 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>$14,500</h2>
+                  <h2>Upgrade Permission</h2>
                   <div class="sub-title">
                     <span class="mr-1">Expense of this year</span> |
                     <span class="mx-1">50%</span>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>$4199</h2>
+                  <h2>List Admins</h2>
                   <div class="sub-title">
                     <span class="mr-1">Profit of this year</span> |
                     <span class="mx-1">20%</span>
@@ -164,7 +164,7 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>$20,199</h2>
+                  <h2>List Users</h2>
                   <div class="sub-title">
                     <span class="mr-1">Revenue of this year</span> |
                     <span class="mx-1">35%</span>
