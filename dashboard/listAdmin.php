@@ -4,9 +4,12 @@ if (!isset($_SESSION['authenticated'])) {
   header('Location: ../login.php');
   exit(0);
 }
+
 require_once '../conexao.php';
-$query = "SELECT * FROM users";
+$query = "SELECT * FROM users WHERE permission=1 ORDER BY id";
 $queryadm = mysqli_query($conn, $query);
+$result = mysqli_query($conn, $query);
+$resultdelete = mysqli_query($conn, $query);
 if ($queryadm->num_rows) {
   $row = $queryadm->fetch_object();
   $admin = $row->nome;
@@ -57,8 +60,8 @@ if ($queryadm->num_rows) {
         <!-- begin sidebar scrollbar -->
         <div class="sidebar-left" data-simplebar style="height: 100%;">
           <!-- sidebar menu -->
-          <ul class="nav sidebar-inner" id="sidebar-menu">
-            <li class="active">
+           <ul class="nav sidebar-inner" id="sidebar-menu">
+            <li class=" ">
               <a class="sidenav-item-link" href="dashboard.php">
                 <i class="mdi mdi-briefcase-account-outline"></i>
                 <span class="nav-text">Dashboard</span>
@@ -115,76 +118,58 @@ if ($queryadm->num_rows) {
       <div class="content-wrapper">
         <div class="content">
           <!-- Top -->
-          <div class="row">
-
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class="card-header">
-                  <h2>New User</h2>
-                  <div class="sub-title">
-                    <a href="#"><span class="mr-1">Create new user</span></a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart-wrapper">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class="card-header">
-                  <h2>Upgrade Permission</h2>
-                  <div class="sub-title">
-                    <a href="#"><span class="mr-1">Change the permission</span></a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart-wrapper">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class="card-header">
-                  <h2>List Admins</h2>
-                  <div class="sub-title">
-                    <a href="listAdmin.php"><span class="mr-1">List Admins with Permission</span></a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart-wrapper">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class="card-header">
-                  <h2>List Users</h2>
-                  <div class="sub-title">
-                    <a href="#"><span class="mr-1">Simply list users</span></a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart-wrapper">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          <table class="table text-center">
+            <thead class="text-uppercase thead-dark">
+              <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Permission</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              while ($row = $result->fetch_object()) {
+              ?>
+                <tr>
+                  <td><?php echo $row->email ?></td>
+                  <td><?php echo $row->nome ?></td>
+                  <td><?php echo $row->permission ?></td>
+                  <td><a href='editAdmin.php?id=<?php echo $row->id ?>' class='text-primary' name='edit'> <i class="mdi mdi-square-edit-outline"></i></a></td>
+                  <td><a data-toggle='modal' data-target='#deleteAdmin<?php echo $row->id ?>' class='text-danger' name='delete'> <i class="mdi mdi-delete"></i></a></td>
+                </tr>
+              <?php
+              }
+              ?>
+            </tbody>
+          </table>
           <!-- End Top -->
+          <!-- Modal para eliminar -->
+          <?php while ($row = $resultdelete->fetch_object()) { ?>
+            <div class="modal fade" id='deleteAdmin<?php echo $row->id ?>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Admin</h5><span class="span-contat"><?php echo $row->email; ?></span>
+                  </div>
+                  <div class="modal-body">
+                    <p>Do you want to delete this Admin?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href='deleteAdmin.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='button' class='btn btn-primary'>Yes</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php
+          }
+          ?>
+          <!-- Modal para eliminar fechou -->
 
           <!-- Footer -->
+          <br>
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
               <p>
