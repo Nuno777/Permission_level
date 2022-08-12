@@ -4,13 +4,6 @@ if (!isset($_SESSION['authenticated'])) {
   header('Location: ../login.php');
   exit(0);
 }
-require_once '../conexao.php';
-$query = "SELECT * FROM users";
-$queryadm = mysqli_query($conn, $query);
-if ($queryadm->num_rows) {
-  $row = $queryadm->fetch_object();
-  $admin = $row->nome;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -83,7 +76,7 @@ if ($queryadm->num_rows) {
               <li class="dropdown user-menu">
                 <button class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <img src="assets/images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                  <span class="d-none d-lg-inline-block"><?php echo $admin?></span>
+                  <span class="d-none d-lg-inline-block">Nome</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
@@ -170,7 +163,7 @@ if ($queryadm->num_rows) {
                 <div class="card-header">
                   <h2>List Users</h2>
                   <div class="sub-title">
-                    <a href="#"><span class="mr-1">Simply list users</span></a>
+                    <a href="listUser.php"><span class="mr-1">Simply list users</span></a>
                   </div>
                 </div>
                 <div class="card-body">

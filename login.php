@@ -7,14 +7,20 @@ if (isset($_POST['login'])) {
     $password = hash('sha512', $password); //segurança
     $query = "SELECT * FROM users WHERE email='$email' AND pass='$password'";
     $result = mysqli_query($conn, $query);
-    if (mysqli_num_rows($result)) {
-        $_SESSION['message'] = "Login com sucesso.";
-        $_SESSION['email'] = $email;
-        $_SESSION['password'] = $password;
-        header("location: /Permission_level/dashboard/dashboard.php");
+
+    // Definir Alerta - Operações (EDITAR) 
+    if ($conn->affected_rows > 0) {
+        $_SESSION["message"] = array(
+            "content" => "The registration with the email <b>" . $email . "</b> was successful!",
+            "type" => "success",
+        );
     } else {
-        $_SESSION['message'] = "Email ou Password incorreta, tente novamente.";
+        $_SESSION["message"] = array(
+            "content" => "An error occurred while registering!",
+            "type" => "danger",
+        );
     }
+    header("location: /Permission_level/dashboard/dashboard.php");
 }
 ?>
 

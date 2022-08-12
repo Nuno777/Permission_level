@@ -1,13 +1,14 @@
 <?php
 $email = array_key_exists('email', $_POST) ? $_POST['email'] : "";
 $nome = array_key_exists('nome', $_POST) ? $_POST['nome'] : "";
-$pass = array_key_exists('pass', $_POST) ? $_POST['pass'] : "";
+$pass = array_key_exists('password', $_POST) ? $_POST['password'] : "";
+$cpass = array_key_exists('cpassword', $_POST) ? $_POST['cpassword'] : "";
 $msg_erro = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validar variáveis
-  if ($email == "" || $pass == "" || $nome == "")
-    $msg_erro = "Email, nome ou password não inseridos";
+  if ($email == "" || $pass == "" || $cpass == "" || $nome == "")
+    $msg_erro = "Email, nome ou password não inseridos!";
   else {
     /* 1: estabelecer ligação à BD */
     require_once 'conexao.php';
@@ -21,18 +22,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $nome = $conn->real_escape_string($nome);
       // $pass não precisa porque não será usada diretamente na query
       $pass_hash = hash('sha512', $pass);
-
-      /* 2: executar query... */
-      $query = "INSERT INTO `users` (`email`, `nome`, `pass`) VALUES ('$email', '$nome', '$pass_hash')";
-
-      $sucesso_query = $conn->query($query);
-      if ($sucesso_query) {
-        header("Location: login.php");
-        exit(0);
+      if ($pass !== $cpass) {
+        $msg_erro = "Password diferentes!";
       } else {
-        $code = $conn->errno; // error code of the most recent operation
-        $message = $conn->error; // error message of the most recent op.
-        $msg_erro = "Falha na query! ($code $message)";
+        /* 2: executar query... */
+        $query = "INSERT INTO `users` (`email`, `nome`, `pass`) VALUES ('$email', '$nome', '$pass_hash')";
+
+        $sucesso_query = $conn->query($query);
+        if ($sucesso_query) {
+          header("Location: login.php");
+          exit(0);
+        } else {
+          $code = $conn->errno; // error code of the most recent operation
+          $message = $conn->error; // error message of the most recent op.
+          $msg_erro = "Falha na query! ($code $message)";
+        }
       }
     }
   }
@@ -61,6 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </head>
 
 </head>
+<!-- Alerta - Operações (REGISTER) -->
+<?php
+if (isset($_SESSION["message"])) { ?>
+  <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
+    <?php echo $_SESSION["message"]["content"]; ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span>
+    </button>
+  </div>
+
+<?php unset($_SESSION["message"]);
+}
+?>
 
 <body class="bg-light-gray" id="body">
   <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
@@ -98,9 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <button type="submit" class="btn btn-primary btn-pill mb-4" id="register" name="register">Sign Up</button>
 
-                    <p>Already have an account?
-                      <a class="text-blue" href="login.php">Sign In</a>
-                    </p>
+                    <p>Already have an account? <a class="text-blue" href="login.php">Sign In</a></p>
                   </div>
                 </div>
               </form>
