@@ -112,6 +112,18 @@ $resultdelete = mysqli_query($conn, $query);
 
       <div class="content-wrapper">
         <div class="content">
+          <!-- Alerta - Operações (DELETE) -->
+          <?php
+          if (isset($_SESSION["message"])) { ?>
+            <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
+              <?php echo $_SESSION["message"]["content"]; ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+          <?php unset($_SESSION["message"]);
+          }
+          ?>
           <!-- Top -->
           <table class="table text-center">
             <thead class="text-uppercase thead-dark">

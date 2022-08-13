@@ -20,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // descontaminar variáveis
       $email = $conn->real_escape_string($email);
       $nome = $conn->real_escape_string($nome);
+      $email = htmlspecialchars($email);
+      $nome = htmlspecialchars($nome);
+      $pass = htmlspecialchars($pass);
+      $cpass = htmlspecialchars($cpass);
       // $pass não precisa porque não será usada diretamente na query
       $pass_hash = hash('sha512', $pass);
       if ($pass !== $cpass) {
@@ -65,18 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </head>
 
 </head>
-<!-- Alerta - Operações (REGISTER) -->
-<?php
-if (isset($_SESSION["message"])) { ?>
-  <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
-    <?php echo $_SESSION["message"]["content"]; ?>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span>
-    </button>
-  </div>
-
-<?php unset($_SESSION["message"]);
-}
-?>
 
 <body class="bg-light-gray" id="body">
   <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">

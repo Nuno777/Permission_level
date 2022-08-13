@@ -5,15 +5,15 @@ $id = $_GET["id"];
 $email = $_GET["email"];
 $query = "DELETE FROM users WHERE id='$id'";
 $result = mysqli_query($conn, $query);
- // Definir Alerta - Operações (EDITAR) 
+ // Definir Alerta - Operações (DELETE) 
  if ($conn->affected_rows > 0) {
     $_SESSION["message"] = array(
-        "content" => "O contacto do email <b>" .  $email . "</b> foi eliminado com sucesso!",
+        "content" => "The User with the email <b>" .  $email . "</b> was successfully deleted!",
         "type" => "success",
     );
 } else {
     $_SESSION["message"] = array(
-        "content" => "Ocorreu um erro ao eliminar o contacto do email <b>" . $email . "</b>!",
+        "content" => "There was an error deleting the email <b>" . $email . "</b>!",
         "type" => "danger",
     );
 }

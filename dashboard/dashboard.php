@@ -109,7 +109,6 @@ if (!isset($_SESSION['authenticated'])) {
         <div class="content">
           <!-- Top -->
           <div class="row">
-
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
@@ -176,7 +175,6 @@ if (!isset($_SESSION['authenticated'])) {
 
           </div>
           <!-- End Top -->
-
           <!-- Footer -->
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
