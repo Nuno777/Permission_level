@@ -73,7 +73,7 @@ $resultdelete = mysqli_query($conn, $query);
           <button id="sidebar-toggler" class="sidebar-toggle">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <span class="page-title">Dashboard</span>
+          <span class="page-title">List Users</span>
 
           <div class="navbar-right ">
             <ul class="nav navbar-nav">

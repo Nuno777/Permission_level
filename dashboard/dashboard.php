@@ -128,9 +128,9 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>Upgrade Permission</h2>
+                  <h2>Update Permission</h2>
                   <div class="sub-title">
-                    <a href="#"><span class="mr-1">Change the permission</span></a>
+                    <a href="updatePerms.php"><span class="mr-1">Change the permission</span></a>
                   </div>
                 </div>
                 <div class="card-body">

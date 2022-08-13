@@ -6,7 +6,7 @@ if (!isset($_SESSION['authenticated'])) {
 }
 
 require_once '../conexao.php';
-$query = "SELECT * FROM users WHERE permission=1 ORDER BY id";
+$query = "SELECT * FROM users ORDER BY id";
 $result = mysqli_query($conn, $query);
 $resultdelete = mysqli_query($conn, $query);
 ?>
@@ -73,7 +73,7 @@ $resultdelete = mysqli_query($conn, $query);
           <button id="sidebar-toggler" class="sidebar-toggle">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <span class="page-title">List Admins</span>
+          <span class="page-title">Update Perms</span>
 
           <div class="navbar-right ">
             <ul class="nav navbar-nav">
