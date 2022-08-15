@@ -6,15 +6,12 @@ if (!isset($_SESSION['authenticated'])) {
 }
 
 require_once '../conexao.php';
-if (isset($_POST["updatePerm"])) {
-  $id_cont = $_POST["id_cont"];
+if (isset($_POST["update"])) {
+  $id = $_POST["id"];
   $email = $_POST["email"];
   $nome = $_POST["nome"];
-  $tel = $_POST["tel"];
-  $assunto = $_POST["assunto"];
-  $mensagem = $_POST["mensagem"];
-  $query = "UPDATE users SET email='$email',nome='$nome',telefone='$tel',assunto='$assunto',mensagem='$mensagem' WHERE id_cont='$id_cont'";
-  $result = mysqli_query($conn, $query);
+  $perm = $_POST["permission"];
+  $query = "UPDATE users SET email='$email',nome='$nome',permission='$perm' WHERE id='$id'";
 
   // Definir Alerta - Operações (UPDATE) 
   if ($conn->affected_rows > 0) {
@@ -29,7 +26,7 @@ if (isset($_POST["updatePerm"])) {
     );
   }
 
-  header('Location: dashboardContato.php');
+  header('Location: updatePerms.php');
 }
 ?>
 <!DOCTYPE html>
@@ -134,7 +131,7 @@ if (isset($_POST["updatePerm"])) {
 
       <div class="content-wrapper">
         <div class="content">
-          <!-- Alerta - Operações (DELETE) -->
+          <!-- Alerta - Operações (UPDATE) -->
           <?php
           if (isset($_SESSION["message"])) { ?>
             <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
@@ -192,7 +189,7 @@ if (isset($_POST["updatePerm"])) {
                     <h5 class="modal-title" id="exampleModalLabel">Update Perms</h5>
                   </div>
                   <div class="modal-body">
-                    <form id="updatePerm" action="editcontato.php" method="POST" class="form" enctype="multipart/form-data">
+                    <form id="update" action="updatePerms.php" method="POST" class="form" enctype="multipart/form-data">
                       <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required disabled hidden>
                       <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Email</label>
@@ -212,7 +209,7 @@ if (isset($_POST["updatePerm"])) {
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <a href='updatePerms.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='submit' name="updatePerm" id="updatePermbutton" class='btn btn-primary'>Update</a>
+                    <a href='updatePerms.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='submit' name="update" id="updatePermsbutton" class='btn btn-primary'>Update</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
