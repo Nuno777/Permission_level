@@ -130,7 +130,7 @@ if (!isset($_SESSION['authenticated'])) {
                 <div class="card-header">
                   <h2>Update Permission</h2>
                   <div class="sub-title">
-                    <a href="updatePerms.php"><span class="mr-1">Change the permission</span></a>
+                    <a href="listPerms.php"><span class="mr-1">Change the permission</span></a>
                   </div>
                 </div>
                 <div class="card-body">

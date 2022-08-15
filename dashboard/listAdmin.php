@@ -164,8 +164,8 @@ $resultdelete = mysqli_query($conn, $query);
                     <p>Do you want to delete this Admin?</p>
                   </div>
                   <div class="modal-footer">
-                    <a href='deleteAdmin.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='button' class='btn btn-primary'>Yes</a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <a href='deleteAdmin.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='button' class='btn btn-primary btn-pill'>Yes</a>
+                    <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">No</button>
                   </div>
                 </div>
               </div>

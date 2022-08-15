@@ -6,9 +6,8 @@ if (!isset($_SESSION['authenticated'])) {
 }
 
 require_once '../conexao.php';
-$query = "SELECT * FROM users WHERE permission=0 ORDER BY id";
+$query = "SELECT * FROM users ORDER BY id AND permission DESC";
 $result = mysqli_query($conn, $query);
-$resultdelete = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -73,7 +72,7 @@ $resultdelete = mysqli_query($conn, $query);
           <button id="sidebar-toggler" class="sidebar-toggle">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <span class="page-title">List Users</span>
+          <span class="page-title">List Perms</span>
 
           <div class="navbar-right ">
             <ul class="nav navbar-nav">
@@ -112,7 +111,7 @@ $resultdelete = mysqli_query($conn, $query);
 
       <div class="content-wrapper">
         <div class="content">
-          <!-- Alerta - Operações (DELETE) -->
+          <!-- Alerta - Operações (UPDATE) -->
           <?php
           if (isset($_SESSION["message"])) { ?>
             <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
@@ -132,7 +131,6 @@ $resultdelete = mysqli_query($conn, $query);
                 <th scope="col">Name</th>
                 <th scope="col">Permission</th>
                 <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -143,8 +141,8 @@ $resultdelete = mysqli_query($conn, $query);
                   <td><?php echo $row->email ?></td>
                   <td><?php echo $row->nome ?></td>
                   <td><?php echo $row->permission ?></td>
-                  <td><a href='editUser.php?id=<?php echo $row->id ?>' class='text-primary' name='edit'> <i class="mdi mdi-square-edit-outline"></i></a></td>
-                  <td><a data-toggle='modal' data-target='#deleteUser<?php echo $row->id ?>' class='text-danger' name='delete'> <i class="mdi mdi-delete"></i></a></td>
+                  <td><a href='updatePerms.php?id=<?php echo $row->id ?>' class='text-primary' name='update'><i class="mdi mdi-square-edit-outline"></i></a></td>
+                  <!-- <td><a data-toggle='modal' data-target='#updatePerms<?php echo $row->id ?>' class='text-primary' name='edit'> <i class="mdi mdi-square-edit-outline"></i></a></td> -->
                 </tr>
               <?php
               }
@@ -152,35 +150,63 @@ $resultdelete = mysqli_query($conn, $query);
             </tbody>
           </table>
           <!-- End Top -->
-          <!-- Modal para eliminar -->
-          <?php while ($row = $resultdelete->fetch_object()) { ?>
-            <div class="modal fade" id='deleteUser<?php echo $row->id ?>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5><span class="span-contat"><?php echo $row->email; ?></span>
-                  </div>
-                  <div class="modal-body">
-                    <p>Do you want to delete this User?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <a href='deleteUser.php?id=<?php echo $row->id . '&email=' . $row->email ?>' type='button' class='btn btn-primary btn-pill'>Yes</a>
-                    <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">No</button>
+
+          <!-- Modal para Update -->
+          <!--           <?php
+                          $resultupdate = mysqli_query($conn, $query);
+                          while ($row = $resultupdate->fetch_object()) {
+                            if ($resultupdate && $resultupdate->num_rows) {
+                              $id = $row->id;
+                              $email = $row->email;
+                              $nome = $row->nome;
+                              $perm = $row->permission;
+                          ?>
+              <div class="modal fade" id='updatePerms<?php echo $row->id ?>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Perms</h5>
+                    </div>
+                    <div class="modal-body">
+
+                      <form id="updatePerms" action="updatePerms.php" method="POST" enctype="multipart/form-data">
+                        <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required disabled hidden>
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Email</label>
+                          <input type="email" class="form-control input-lg" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" value="<?= $email ?>" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
+                        </div>
+                        <div class="form-group row col-sm-12">
+                          <div class="form-group row col-md-10">
+                            <label for="recipient-name" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Name" value="<?= $nome ?>">
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="recipient-name" class="col-form-label">Permission</label>
+                            <input type="text" class="form-control" id="perm" name="perm" placeholder="Permission" value="<?= $perm ?>">
+                          </div>
+                        </div>
+                        <a href='updatePerms.php?id=<?php echo $row->id ?>' type='submit' name="updatePerms" id="updatePermsbutton" class='btn btn-primary btn-pill'>Update</a>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+
+                      <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">Close</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
           <?php
-          }
-          ?>
-          <!-- Modal para eliminar fechou -->
+                            }
+                          }
+          ?> -->
+          <!-- Modal para Update fechou -->
 
           <!-- Footer -->
           <br>
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
               <p>
-                &copy; <span id="copy-year"></span> Copyright Dashboard Bank<span class="text-primary">.</span>
+                &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
               </p>
             </div>
             <script>
