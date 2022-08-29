@@ -141,13 +141,13 @@ if (isset($_POST["update"])) {
                                 <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required hidden>
                                 <div class="form-group">
                                     <label for="recipient-name">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" disabled pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="recipient-name">Name</label>
-                                            <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>" required disabled>
+                                            <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -184,7 +184,7 @@ if (isset($_POST["update"])) {
                     </div>
                 <?php
                 } else {
-                    echo "<script>alert('Selecione um contacto valido');window.location='listPerms.php'</script>";
+                    echo "<script>alert('Please select a valid user!');window.location='listPerms.php'</script>";
                 }
                 ?>
             </div>
@@ -200,23 +200,6 @@ if (isset($_POST["update"])) {
             <script src="assets/plugins/jvectormap/jquery-jvectormap-us-aea.js"></script>
             <script src="assets/plugins/daterangepicker/moment.min.js"></script>
             <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
-            <script>
-                jQuery(document).ready(function() {
-                    jQuery('input[name="dateRange"]').daterangepicker({
-                        autoUpdateInput: false,
-                        singleDatePicker: true,
-                        locale: {
-                            cancelLabel: 'Clear'
-                        }
-                    });
-                    jQuery('input[name="dateRange"]').on('apply.daterangepicker', function(ev, picker) {
-                        jQuery(this).val(picker.startDate.format('MM/DD/YYYY'));
-                    });
-                    jQuery('input[name="dateRange"]').on('cancel.daterangepicker', function(ev, picker) {
-                        jQuery(this).val('');
-                    });
-                });
-            </script>
             <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
             <script src="assets/plugins/toaster/toastr.min.js"></script>
             <script src="assets/js/mono.js"></script>
