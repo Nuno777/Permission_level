@@ -112,9 +112,9 @@ if (!isset($_SESSION['authenticated'])) {
             <div class="col-xl-3 col-sm-6">
               <div class="card card-default card-mini">
                 <div class="card-header">
-                  <h2>New User</h2>
+                  <h2>New Admin</h2>
                   <div class="sub-title">
-                    <a href="#"><span class="mr-1">Create new user</span></a>
+                    <a href="#"><span class="mr-1">Create new Admin</span></a>
                   </div>
                 </div>
                 <div class="card-body">
@@ -179,7 +179,7 @@ if (!isset($_SESSION['authenticated'])) {
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
               <p>
-                &copy; <span id="copy-year"></span> Copyright Dashboard Bank<span class="text-primary">.</span>
+                &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
               </p>
             </div>
             <script>

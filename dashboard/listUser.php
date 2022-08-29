@@ -180,7 +180,7 @@ $resultdelete = mysqli_query($conn, $query);
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
               <p>
-                &copy; <span id="copy-year"></span> Copyright Dashboard Bank<span class="text-primary">.</span>
+                &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
               </p>
             </div>
             <script>

@@ -6,15 +6,25 @@ if (!isset($_SESSION['authenticated'])) {
 }
 
 require_once '../conexao.php';
-if (isset($_POST["updatePe"])) {
+if (isset($_POST["update"])) {
     $id = $_POST["id"];
     $email = $_POST["email"];
     $nome = $_POST["nome"];
     $permission = $_POST["permission"];
     $query = "UPDATE users SET email='$email',nome='$nome',permission='$permission' WHERE id='$id'";
     $result = mysqli_query($conn, $query);
-
-
+    // Definir Alerta - Operações (UPDATE) 
+    if ($conn->affected_rows > 0) {
+        $_SESSION["message"] = array(
+            "content" => "The email  <b>" . $email . "</b> permission has been updated successfully!",
+            "type" => "success",
+        );
+    } else {
+        $_SESSION["message"] = array(
+            "content" => "There was an error updating email permissions <b>" . $email . "</b>!",
+            "type" => "danger",
+        );
+    }
     header('Location: listPerms.php');
 }
 ?>
@@ -43,12 +53,6 @@ if (isset($_POST["updatePe"])) {
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
-    <script>
-        NProgress.configure({
-            showSpinner: false
-        });
-        NProgress.start();
-    </script>
 
     <div class="wrapper">
         <aside class="left-sidebar sidebar-dark" id="left-sidebar">
@@ -119,66 +123,72 @@ if (isset($_POST["updatePe"])) {
 
 
             <div class="content-wrapper">
-                <div class="content">
-                    <!-- Top -->
-                    <?php
-                    $id = $_GET["id"];
-                    $query = "SELECT * FROM users WHERE id='$id'";
-                    $result = mysqli_query($conn, $query);
-                    if ($result && $result->num_rows) {
-                        $row = $result->fetch_object();
-                        $id = $row->id;
-                        $email = $row->email;
-                        $nome = $row->nome;
-                        $permission = $row->permission;
-                    ?>
-                        <form id="updatePe" action="updatePerms.php" method="POST" enctype="multipart/form-data">
-                            <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required disabled hidden>
-                            <div class="form-group">
-                                <label for="recipient-name">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
-                            </div>
-                            <div lass="form-group row mb-2">
-                                <div class="form-group row col-md-6">
-                                    <label for="recipient-name">Password</label>
-                                    <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>">
+                <?php
+                $id = $_GET["id"];
+                $query = "SELECT * FROM users WHERE id='$id'";
+                $result = mysqli_query($conn, $query);
+                if ($result && $result->num_rows) {
+                    $row = $result->fetch_object();
+                    $id = $row->id;
+                    $email = $row->email;
+                    $nome = $row->nome;
+                    $permission = $row->permission;
+                ?>
+                    <div class="content">
+                        <!-- Top -->
+                        <form id="update" action="updatePerms.php" method="POST" enctype="multipart/form-data">
+                            <div class="card card-body">
+                                <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required hidden>
+                                <div class="form-group">
+                                    <label for="recipient-name">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" disabled pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
                                 </div>
-                                <div class="form-group row col-md-2">
-                                    <label for="recipient-name" class="col-form-label">Permission</label>
-                                    <input type="text" class="form-control" id="permission" name="permission" placeholder="Permission" value="<?= $permission ?>">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="recipient-name">Name</label>
+                                            <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>" required disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="recipient-name">Permission</label>
+                                            <input type="number" class="form-control" id="permission" name="permission" placeholder="Permission" value="<?= $permission ?>" minlength="1" maxlength="1" min="0" max="2" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-footer">
+                                    <button class="btn btn-primary btn-pill" name="update" id="updatebutton" type="submit" disabled>Update</button>
+                                    <a href="listPerms.php" class="btn btn-secondary btn-pill" name="cancel" type="submit">Cancel</a>
                                 </div>
                             </div>
-
-                            <div class="form-footer">
-                                <button type="submit" class="btn btn-primary btn-pill" name="updatePerms" id="updatePermsbutton">Update</button>
-                                <a href="listPerms.php" class="btn btn-secondary btn-pill" name="cancel" type="submit">Cancel</a>
-                            </div>
-
                         </form>
-                    <?php
-                    } else {
-                        echo "<script>alert('Selecione um contacto valido');window.location='listPerms.php'</script>";
-                    }
-                    ?>
-                    <!-- End Top -->
+                        <!-- End Top -->
 
-                    <!-- Footer -->
-                    <br>
-                    <footer class="footer mt-auto">
-                        <div class="copyright bg-white">
-                            <p>
-                                &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
-                            </p>
-                        </div>
-                        <script>
-                            var d = new Date();
-                            var year = d.getFullYear();
-                            document.getElementById("copy-year").innerHTML = year;
-                        </script>
-                    </footer>
-                    <!-- End Footer -->
-                </div>
+                        <!-- Footer -->
+                        <br>
+                        <footer class="footer mt-auto">
+                            <div class="copyright bg-white">
+                                <p>
+                                    &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
+                                </p>
+                            </div>
+                            <script>
+                                var d = new Date();
+                                var year = d.getFullYear();
+                                document.getElementById("copy-year").innerHTML = year;
+                            </script>
+                        </footer>
+                        <!-- End Footer -->
+                    </div>
+                <?php
+                } else {
+                    echo "<script>alert('Selecione um contacto valido');window.location='listPerms.php'</script>";
+                }
+                ?>
             </div>
+
             <script src="assets/plugins/jquery/jquery.min.js"></script>
             <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="assets/plugins/simplebar/simplebar.min.js"></script>
@@ -213,6 +223,14 @@ if (isset($_POST["updatePe"])) {
             <script src="assets/js/chart.js"></script>
             <script src="assets/js/map.js"></script>
             <script src="assets/js/custom.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#update').on('input change', function() {
+                        $('#updatebutton').attr('disabled', false);
+                    });
+                })
+            </script>
+
 
 </body>
 

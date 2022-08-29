@@ -7,9 +7,9 @@ $msg_erro = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validar variáveis
-  if ($email == "" || $pass == "" || $cpass == "" || $nome == "")
+  if ($email == "" || $pass == "" || $cpass == "" || $nome == ""){
     $msg_erro = "Email, nome ou password não inseridos!";
-  else {
+  }else {
     /* 1: estabelecer ligação à BD */
     require_once 'conexao.php';
     if ($conn->connect_errno) {
