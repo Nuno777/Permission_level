@@ -114,7 +114,7 @@ if (!isset($_SESSION['authenticated'])) {
                 <div class="card-header">
                   <h2>New Admin</h2>
                   <div class="sub-title">
-                    <a href="#"><span class="mr-1">Create new Admin</span></a>
+                    <a href="newAdmin.php"><span class="mr-1">Create new Admin</span></a>
                   </div>
                 </div>
                 <div class="card-body">
