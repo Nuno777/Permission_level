@@ -12,9 +12,9 @@ $cpass = array_key_exists('cpassword', $_POST) ? $_POST['cpassword'] : "";
 
 $msg_erro = "";
 
-if (isset($_POST["new"])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // validar variáveis
-    if ($email == "" || $pass == "" || $cpass == "" || $nome == "" || $permission == "") {
+    if ($email == "" || $pass == "" || $cpass == "" || $nome == "") {
         $msg_erro = "Email, nome ou password não inseridos!";
     } else {
         /* 1: estabelecer ligação à BD */
@@ -150,7 +150,7 @@ if (isset($_POST["new"])) {
             <div class="content-wrapper">
                 <div class="content">
                     <!-- Top -->
-                    <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
+                    <!-- <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
                         <div class="card card-body">
                             <div class="form-group">
                                 <label for="recipient-name">Email</label>
@@ -190,6 +190,23 @@ if (isset($_POST["new"])) {
                                 <a href="dashboard.php" class="btn btn-secondary btn-pill" name="cancel" type="submit">Cancel</a>
                             </div>
                         </div>
+                    </form> -->
+                    <form method="POST" action="newAdmin.php" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="form-group col-md-12 mb-4">
+                                <input type="text" class="form-control input-lg" id="nome" name="nome" aria-describedby="nameHelp" placeholder="Name" required>
+                            </div>
+                            <div class="form-group col-md-12 mb-4">
+                                <input type="email" class="form-control input-lg" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
+                            </div>
+                            <!--    <div class="form-group col-md-12 ">
+                                <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group col-md-12 ">
+                                <input type="password" class="form-control input-lg" id="cpassword" name="cpassword" placeholder="Confirm Password" required>
+                            </div> -->
+                            <button type="submit" class="btn btn-primary btn-pill mb-4">Sign Up</button>
+                        </div>
                     </form>
                     <!-- End Top -->
 
@@ -228,13 +245,6 @@ if (isset($_POST["new"])) {
             <script src="assets/js/chart.js"></script>
             <script src="assets/js/map.js"></script>
             <script src="assets/js/custom.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#new').on('input change', function() {
-                        $('#newbutton').attr('disabled', false);
-                    });
-                })
-            </script>
 
 
 </body>
