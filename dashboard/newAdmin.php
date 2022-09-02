@@ -9,16 +9,16 @@ $email = array_key_exists('email', $_POST) ? $_POST['email'] : "";
 $nome = array_key_exists('nome', $_POST) ? $_POST['nome'] : "";
 $pass = array_key_exists('password', $_POST) ? $_POST['password'] : "";
 $cpass = array_key_exists('cpassword', $_POST) ? $_POST['cpassword'] : "";
-
+$permission = array_key_exists('permission', $_POST) ? $_POST['permission'] : "";
 $msg_erro = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['new'])) {
     // validar variáveis
-    if ($email == "" || $pass == "" || $cpass == "" || $nome == "") {
+    if ($email == "" || $pass == "" || $cpass == "" || $nome == "" || $permission == "") {
         $msg_erro = "Email, nome ou password não inseridos!";
     } else {
         /* 1: estabelecer ligação à BD */
-        require_once 'conexao.php';
+        require_once '../conexao.php';
         if ($conn->connect_errno) {
             $code = $conn->connect_errno;
             $message = $conn->connect_error;
@@ -37,10 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $msg_erro = "Password diferentes!";
             } else {
                 /* 2: executar query... */
-                $query = "INSERT INTO `users` (`email`, `nome`, `pass`) VALUES ('$email', '$nome', '$pass_hash')";
+                $query = "INSERT INTO `users` (`email`, `nome`, `pass`,`permission`) VALUES ('$email', '$nome', '$pass_hash','$permission')";
 
                 $sucesso_query = $conn->query($query);
                 if ($sucesso_query) {
+                    if ($conn->affected_rows > 0) {
+                        $_SESSION["message"] = array(
+                            "content" => "The admin with the email  <b>" . $email . "</b> was created successfully!",
+                            "type" => "success",
+                        );
+                    } else {
+                        $_SESSION["message"] = array(
+                            "content" => "There was an error creating the admin with the email <b>" . $email . "</b>!",
+                            "type" => "danger",
+                        );
+                    }
                     header("Location: dashboard.php");
                     exit(0);
                 } else {
@@ -150,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="content-wrapper">
                 <div class="content">
                     <!-- Top -->
-                    <!-- <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
+                    <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
                         <div class="card card-body">
                             <div class="form-group">
                                 <label for="recipient-name">Email</label>
@@ -189,23 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <button class="btn btn-primary btn-pill" name="new" id="newbutton" type="submit">Create</button>
                                 <a href="dashboard.php" class="btn btn-secondary btn-pill" name="cancel" type="submit">Cancel</a>
                             </div>
-                        </div>
-                    </form> -->
-                    <form method="POST" action="newAdmin.php" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="form-group col-md-12 mb-4">
-                                <input type="text" class="form-control input-lg" id="nome" name="nome" aria-describedby="nameHelp" placeholder="Name" required>
-                            </div>
-                            <div class="form-group col-md-12 mb-4">
-                                <input type="email" class="form-control input-lg" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
-                            </div>
-                            <!--    <div class="form-group col-md-12 ">
-                                <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password" required>
-                            </div>
-                            <div class="form-group col-md-12 ">
-                                <input type="password" class="form-control input-lg" id="cpassword" name="cpassword" placeholder="Confirm Password" required>
-                            </div> -->
-                            <button type="submit" class="btn btn-primary btn-pill mb-4">Sign Up</button>
                         </div>
                     </form>
                     <!-- End Top -->
