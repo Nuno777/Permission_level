@@ -9,7 +9,7 @@ $query = "SELECT permission from users where email = '{$_SESSION['email']}'";
 $result = mysqli_query($conn, $query);
 $levelperm = mysqli_fetch_assoc($result);
 if ($levelperm['permission'] == 0) {
-  header('Location: ../index.php');
+  header('Location: /Permission_level/dashboard/accountSettings.php');
 }
 
 ?>
@@ -88,7 +88,7 @@ if ($levelperm['permission'] == 0) {
                   </li>
 
                   <li>
-                    <a class="dropdown-link-item" href="user-account-settings.html">
+                    <a class="dropdown-link-item" href="accountSettings.php">
                       <i class="mdi mdi-settings"></i>
                       <span class="nav-text">Account Setting</span>
                     </a>
