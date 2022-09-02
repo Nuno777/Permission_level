@@ -4,6 +4,14 @@ if (!isset($_SESSION['authenticated'])) {
   header('Location: ../login.php');
   exit(0);
 }
+require_once '../conexao.php';
+$query = "SELECT permission from users where email = '{$_SESSION['email']}'";
+$result = mysqli_query($conn, $query);
+$levelperm = mysqli_fetch_assoc($result);
+if ($levelperm['permission'] == 0) {
+  header('Location: ../index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -30,13 +38,6 @@ if (!isset($_SESSION['authenticated'])) {
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
-  <script>
-    NProgress.configure({
-      showSpinner: false
-    });
-    NProgress.start();
-  </script>
-
   <div class="wrapper">
     <aside class="left-sidebar sidebar-dark" id="left-sidebar">
       <div id="sidebar" class="sidebar sidebar-with-footer">
@@ -107,6 +108,18 @@ if (!isset($_SESSION['authenticated'])) {
 
       <div class="content-wrapper">
         <div class="content">
+          <!-- Alerta - Operações (LOGIN) -->
+          <?php
+          if (isset($_SESSION["message"])) { ?>
+            <div class='alert alert-<?php echo $_SESSION["message"]["type"] ?> alert-dismissible fade show' role='alert'>
+              <?php echo $_SESSION["message"]["content"]; ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+          <?php unset($_SESSION["message"]);
+          }
+          ?>
           <!-- Top -->
           <div class="row">
             <div class="col-xl-3 col-sm-6">
@@ -189,6 +202,7 @@ if (!isset($_SESSION['authenticated'])) {
             </script>
           </footer>
           <!-- End Footer -->
+
         </div>
       </div>
       <script src="assets/plugins/jquery/jquery.min.js"></script>

@@ -19,7 +19,18 @@ if (count($_SESSION['errors']) == 0) {
         if ($result->fetch_object()->pass == $password) {
             $_SESSION['authenticated'] = true;
             $_SESSION['email'] = $email;
-            header('Location: /Permission_level/dashboard/dashboard.php');
+            if ($conn->affected_rows > 0) {
+                $_SESSION["message"] = array(
+                    "content" => "The email  <b>" . $email . "</b> has successfully logged in!",
+                    "type" => "success",
+                );
+                header('Location: /Permission_level/dashboard/dashboard.php');
+            } else {
+                $_SESSION["message"] = array(
+                    "content" => "There was an error logging in with email <b>" . $email . "</b>!",
+                    "type" => "danger",
+                );
+            }
         } else {
             $_SESSION['errors']['auth'] = 'Email/password incorretas';
         }
@@ -30,6 +41,8 @@ if (count($_SESSION['errors']) != 0) {
     exit(0);
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
