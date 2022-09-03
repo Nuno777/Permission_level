@@ -9,9 +9,8 @@ require_once '../conexao.php';
 if (isset($_POST["update"])) {
     $id = $_POST["id"];
     $email = $_POST["email"];
-    $nome = $_POST["nome"];
     $permission = $_POST["permission"];
-    $query = "UPDATE users SET email='$email',nome='$nome',permission='$permission' WHERE id='$id'";
+    $query = "UPDATE users SET permission='$permission' WHERE id='$id'";
     $result = mysqli_query($conn, $query);
     // Definir Alerta - Operações (UPDATE) 
     if ($conn->affected_rows > 0) {
@@ -115,13 +114,13 @@ if (isset($_POST["update"])) {
                                 <input type="text" class="form-control" id="id" name="id" value="<?= $id ?>" required hidden>
                                 <div class="form-group">
                                     <label for="recipient-name">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $email ?>" disabled pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="recipient-name">Name</label>
-                                            <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>" required>
+                                            <input type="text" class="form-control " id="nome" name="nome" placeholder="Name" value="<?= $nome ?>" disabled required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
