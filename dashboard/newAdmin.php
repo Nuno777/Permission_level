@@ -124,39 +124,12 @@ if (isset($_POST['new'])) {
                     <span class="page-title">Update Perms</span>
 
                     <div class="navbar-right ">
-                        <ul class="nav navbar-nav">
-                            <!-- User Account -->
-                            <li class="dropdown user-menu">
-                                <button class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <img src="assets/images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                                    <span class="d-none d-lg-inline-block">Nome</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a class="dropdown-link-item" href="user-profile.html">
-                                            <i class="mdi mdi-account-outline"></i>
-                                            <span class="nav-text">My Profile</span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-link-item" href="user-account-settings.html">
-                                            <i class="mdi mdi-settings"></i>
-                                            <span class="nav-text">Account Setting</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="dropdown-footer">
-                                        <a class="dropdown-link-item" href="logout.php"> <i class="mdi mdi-logout"></i>Log Out</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- End User Account -->
+                        <?php
+                        require_once 'sheets/dashboardNavbar.php';
+                        ?>
                     </div>
                 </nav>
             </header>
-
 
             <div class="content-wrapper">
                 <div class="content">
@@ -204,21 +177,12 @@ if (isset($_POST['new'])) {
                     </form>
                     <!-- End Top -->
 
-                    <!-- Footer -->
                     <br>
                     <footer class="footer mt-auto">
-                        <div class="copyright bg-white">
-                            <p>
-                                &copy; <span id="copy-year"></span> Copyright Dashboard <span class="text-primary">Bank.</span>
-                            </p>
-                        </div>
-                        <script>
-                            var d = new Date();
-                            var year = d.getFullYear();
-                            document.getElementById("copy-year").innerHTML = year;
-                        </script>
+                        <?php
+                        require_once 'sheets/dashboardFooter.php';
+                        ?>
                     </footer>
-                    <!-- End Footer -->
                 </div>
             </div>
 
