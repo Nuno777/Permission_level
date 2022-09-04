@@ -205,7 +205,6 @@ if (isset($_POST["updateAccount"])) {
                 <div class="card card-default">
                   <div class="card-header">
                     <h2 class="mb-5">Account Settings</h2>
-
                   </div>
 
                   <div class="card-body">

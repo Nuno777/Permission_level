@@ -120,7 +120,7 @@ if ($levelperm['permission'] == 0) {
                     <button id="sidebar-toggler" class="sidebar-toggle">
                         <span class="sr-only">Toggle navigation</span>
                     </button>
-                    <span class="page-title">Update Perms</span>
+                    <span class="page-title">New Admin</span>
 
                     <div class="navbar-right ">
                         <?php
@@ -133,8 +133,10 @@ if ($levelperm['permission'] == 0) {
             <div class="content-wrapper">
                 <div class="content">
                     <!-- Top -->
-                    <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
-                        <div class="card card-body">
+                    <div class="card card-body">
+
+                        <form id="new" action="newAdmin.php" method="POST" enctype="multipart/form-data">
+
                             <div class="form-group">
                                 <label for="recipient-name">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
@@ -169,11 +171,12 @@ if ($levelperm['permission'] == 0) {
                             </div>
 
                             <div class="form-footer">
-                                <button class="btn btn-primary btn-pill" name="new" id="newbutton" type="submit">Create</button>
+                                <button class="btn btn-primary btn-pill" name="new" id="newbutton" type="submit" disabled>Create</button>
                                 <a href="dashboard.php" class="btn btn-secondary btn-pill" name="cancel" type="submit">Cancel</a>
                             </div>
-                        </div>
-                    </form>
+
+                        </form>
+                    </div>
                     <!-- End Top -->
 
                     <br>
@@ -202,7 +205,13 @@ if ($levelperm['permission'] == 0) {
             <script src="assets/js/chart.js"></script>
             <script src="assets/js/map.js"></script>
             <script src="assets/js/custom.js"></script>
-
+            <script>
+                $(document).ready(function() {
+                    $('#new').on('input change', function() {
+                        $('#newbutton').attr('disabled', false);
+                    });
+                })
+            </script>
 
 </body>
 

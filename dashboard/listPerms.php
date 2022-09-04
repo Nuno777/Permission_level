@@ -93,7 +93,7 @@ if ($levelperm['permission'] == 0) {
           }
           ?>
           <!-- Top -->
-          <table class="table text-center">
+          <table class="table table text-center">
             <thead class="text-uppercase thead-dark">
               <tr>
                 <th scope="col">Email</th>

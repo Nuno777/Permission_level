@@ -95,8 +95,8 @@ if ($levelperm['permission'] == 0) {
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="chart-wrapper">
 
+                  <div class="chart-wrapper">
                   </div>
                 </div>
               </div>
@@ -111,8 +111,13 @@ if ($levelperm['permission'] == 0) {
                   </div>
                 </div>
                 <div class="card-body">
+                  <?php
+                  $query = "SELECT id FROM users ORDER BY id";
+                  $total = mysqli_query($conn, $query);
+                  $total = mysqli_num_rows($total);
+                  ?>
+                  <p>Total Accounts: <?php echo $total ?></p>
                   <div class="chart-wrapper">
-
                   </div>
                 </div>
               </div>
@@ -127,8 +132,13 @@ if ($levelperm['permission'] == 0) {
                   </div>
                 </div>
                 <div class="card-body">
+                  <?php
+                  $query = "SELECT id FROM users WHERE permission=1 ORDER BY id";
+                  $totaladm = mysqli_query($conn, $query);
+                  $adm = mysqli_num_rows($totaladm);
+                  ?>
+                  <p>Total Admins: <?php echo $adm ?></p>
                   <div class="chart-wrapper">
-
                   </div>
                 </div>
               </div>
@@ -143,15 +153,52 @@ if ($levelperm['permission'] == 0) {
                   </div>
                 </div>
                 <div class="card-body">
+                  <?php
+                  $query = "SELECT id FROM users WHERE permission=0 ORDER BY id";
+                  $totaluser = mysqli_query($conn, $query);
+                  $user = mysqli_num_rows($totaluser);
+                  ?>
+                  <p>Total Simple Users: <?php echo $user ?></p>
                   <div class="chart-wrapper">
-
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
           <!-- End Top -->
+          <!-- Table -->
+          <div class="row">
+            <div class="col-xl-12">
+              <table class="table text-center">
+                <thead class="text-uppercase thead-dark">
+                  <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Planing</th>
+                    <th scope="col">Permission</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $query = "SELECT * FROM users ORDER BY id AND permission DESC";
+                  $result = mysqli_query($conn, $query);
+                  while ($row = $result->fetch_object()) {
+                  ?>
+                    <tr>
+                      <td><?php echo $row->email ?></td>
+                      <td><?php echo $row->nome ?></td>
+                      <td><?php echo $row->plan ?></td>
+                      <td><?php echo $row->permission ?></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
+          <!-- End Table -->
 
           <footer class="footer mt-auto">
             <?php
