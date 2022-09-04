@@ -102,19 +102,25 @@ if (isset($_POST["updateAccount"])) {
           <ul class="nav sidebar-inner" id="sidebar-menu">
             <li class="">
               <a class="sidenav-item-link" href="dashboard.php">
-                <i class="mdi mdi-briefcase-account-outline"></i>
+                <i class="mdi mdi-monitor-dashboard"></i>
                 <span class="nav-text">Dashboard</span>
               </a>
             </li>
             <li class="">
-              <a class="sidenav-item-link" href="#">
-                <i class="mdi mdi-briefcase-account-outline"></i>
+              <a class="sidenav-item-link" href="profile.php">
+                <i class="mdi mdi-account"></i>
                 <span class="nav-text">Profile</span>
               </a>
             </li>
+            <li class="">
+              <a class="sidenav-item-link" href="planing.php">
+                <i class="mdi mdi-account-star"></i>
+                <span class="nav-text">Account Planing</span>
+              </a>
+            </li>
             <li class="active">
-              <a class="sidenav-item-link" href="accountSettings.php">
-                <i class="mdi mdi-briefcase-account-outline"></i>
+              <a class="sidenav-item-link" href="#">
+                <i class="mdi mdi-account-settings"></i>
                 <span class="nav-text">Account Setting</span>
               </a>
             </li>
@@ -180,7 +186,10 @@ if (isset($_POST["updateAccount"])) {
               <div class="card-footer card-profile-footer">
                 <ul class="nav nav-border-top justify-content-center">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="profile.php">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="planing.php">Planing</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" href="#">Settings</a>

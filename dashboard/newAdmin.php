@@ -4,65 +4,73 @@ if (!isset($_SESSION['authenticated'])) {
     header('Location: ../login.php');
     exit(0);
 }
+require_once '../conexao.php';
+$query = "SELECT permission from users where email = '{$_SESSION['email']}'";
+$perms = mysqli_query($conn, $query);
+$levelperm = mysqli_fetch_assoc($perms);
+if ($levelperm['permission'] == 0) {
+    header('Location: /Permission_level/dashboard/profile.php');
+} else {
+    $email = array_key_exists('email', $_POST) ? $_POST['email'] : "";
+    $nome = array_key_exists('nome', $_POST) ? $_POST['nome'] : "";
+    $pass = array_key_exists('password', $_POST) ? $_POST['password'] : "";
+    $cpass = array_key_exists('cpassword', $_POST) ? $_POST['cpassword'] : "";
+    $permission = array_key_exists('permission', $_POST) ? $_POST['permission'] : "";
+    $msg_erro = "";
 
-$email = array_key_exists('email', $_POST) ? $_POST['email'] : "";
-$nome = array_key_exists('nome', $_POST) ? $_POST['nome'] : "";
-$pass = array_key_exists('password', $_POST) ? $_POST['password'] : "";
-$cpass = array_key_exists('cpassword', $_POST) ? $_POST['cpassword'] : "";
-$permission = array_key_exists('permission', $_POST) ? $_POST['permission'] : "";
-$msg_erro = "";
-
-if (isset($_POST['new'])) {
-    // validar variáveis
-    if ($email == "" || $pass == "" || $cpass == "" || $nome == "" || $permission == "") {
-        $msg_erro = "Email, nome ou password não inseridos!";
-    } else {
-        /* 1: estabelecer ligação à BD */
-        require_once '../conexao.php';
-        if ($conn->connect_errno) {
-            $code = $conn->connect_errno;
-            $message = $conn->connect_error;
-            $msg_erro = "Falha na ligação à BaseDados ($code $message)!";
+    if (isset($_POST['new'])) {
+        // validar variáveis
+        if ($email == "" || $pass == "" || $cpass == "" || $nome == "" || $permission == "") {
+            $msg_erro = "Email, nome ou password não inseridos!";
         } else {
-            // descontaminar variáveis
-            $email = $conn->real_escape_string($email);
-            $nome = $conn->real_escape_string($nome);
-            $email = htmlspecialchars($email);
-            $nome = htmlspecialchars($nome);
-            $pass = htmlspecialchars($pass);
-            $cpass = htmlspecialchars($cpass);
-            // $pass não precisa porque não será usada diretamente na query
-            $pass_hash = hash('sha512', $pass);
-            if ($pass !== $cpass) {
-                $msg_erro = "Password diferentes!";
+            /* 1: estabelecer ligação à BD */
+            if ($conn->connect_errno) {
+                $code = $conn->connect_errno;
+                $message = $conn->connect_error;
+                $msg_erro = "Falha na ligação à BaseDados ($code $message)!";
             } else {
-                /* 2: executar query... */
-                $query = "INSERT INTO `users` (`email`, `nome`, `pass`,`permission`) VALUES ('$email', '$nome', '$pass_hash','$permission')";
-
-                $sucesso_query = $conn->query($query);
-                if ($sucesso_query) {
-                    if ($conn->affected_rows > 0) {
-                        $_SESSION["message"] = array(
-                            "content" => "The admin with the email  <b>" . $email . "</b> was created successfully!",
-                            "type" => "success",
-                        );
-                    } else {
-                        $_SESSION["message"] = array(
-                            "content" => "There was an error creating the admin with the email <b>" . $email . "</b>!",
-                            "type" => "danger",
-                        );
-                    }
-                    header("Location: dashboard.php");
-                    exit(0);
+                // descontaminar variáveis
+                $email = $conn->real_escape_string($email);
+                $nome = $conn->real_escape_string($nome);
+                $email = htmlspecialchars($email);
+                $nome = htmlspecialchars($nome);
+                $pass = htmlspecialchars($pass);
+                $cpass = htmlspecialchars($cpass);
+                // $pass não precisa porque não será usada diretamente na query
+                $pass_hash = hash('sha512', $pass);
+                if ($pass !== $cpass) {
+                    $msg_erro = "Password diferentes!";
                 } else {
-                    $code = $conn->errno; // error code of the most recent operation
-                    $message = $conn->error; // error message of the most recent op.
-                    $msg_erro = "Falha na query! ($code $message)";
+                    /* 2: executar query... */
+                    $query = "INSERT INTO `users` (`email`, `nome`, `pass`,`permission`) VALUES ('$email', '$nome', '$pass_hash','$permission')";
+
+                    $sucesso_query = $conn->query($query);
+                    if ($sucesso_query) {
+                        if ($conn->affected_rows > 0) {
+                            $_SESSION["message"] = array(
+                                "content" => "The admin with the email  <b>" . $email . "</b> was created successfully!",
+                                "type" => "success",
+                            );
+                        } else {
+                            $_SESSION["message"] = array(
+                                "content" => "There was an error creating the admin with the email <b>" . $email . "</b>!",
+                                "type" => "danger",
+                            );
+                        }
+                        header("Location: dashboard.php");
+                        exit(0);
+                    } else {
+                        $code = $conn->errno; // error code of the most recent operation
+                        $message = $conn->error; // error message of the most recent op.
+                        $msg_erro = "Falha na query! ($code $message)";
+                    }
                 }
             }
         }
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -100,18 +108,9 @@ if (isset($_POST['new'])) {
                         <span class="brand-name">Bank.</span>
                     </a>
                 </div>
-                <!-- begin sidebar scrollbar -->
-                <div class="sidebar-left" data-simplebar style="height: 100%;">
-                    <!-- sidebar menu -->
-                    <ul class="nav sidebar-inner" id="sidebar-menu">
-                        <li class=" ">
-                            <a class="sidenav-item-link" href="dashboard.php">
-                                <i class="mdi mdi-briefcase-account-outline"></i>
-                                <span class="nav-text">Dashboard</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+                require_once 'sheets/dashboardmenu.php';
+                ?>
             </div>
         </aside>
 

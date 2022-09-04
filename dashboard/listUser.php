@@ -6,9 +6,12 @@ if (!isset($_SESSION['authenticated'])) {
 }
 
 require_once '../conexao.php';
-$query = "SELECT * FROM users WHERE permission=0 ORDER BY id";
-$result = mysqli_query($conn, $query);
-$resultdelete = mysqli_query($conn, $query);
+$query = "SELECT permission from users where email = '{$_SESSION['email']}'";
+$perms = mysqli_query($conn, $query);
+$levelperm = mysqli_fetch_assoc($perms);
+if ($levelperm['permission'] == 0) {
+  header('Location: /Permission_level/dashboard/profile.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -52,18 +55,9 @@ $resultdelete = mysqli_query($conn, $query);
             <span class="brand-name">Bank.</span>
           </a>
         </div>
-        <!-- begin sidebar scrollbar -->
-        <div class="sidebar-left" data-simplebar style="height: 100%;">
-          <!-- sidebar menu -->
-          <ul class="nav sidebar-inner" id="sidebar-menu">
-            <li class=" ">
-              <a class="sidenav-item-link" href="dashboard.php">
-                <i class="mdi mdi-briefcase-account-outline"></i>
-                <span class="nav-text">Dashboard</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <?php
+        require_once 'sheets/dashboardmenu.php';
+        ?>
       </div>
     </aside>
 
@@ -111,6 +105,9 @@ $resultdelete = mysqli_query($conn, $query);
             </thead>
             <tbody>
               <?php
+              $query = "SELECT * FROM users WHERE permission=0 ORDER BY id";
+              $result = mysqli_query($conn, $query);
+              $resultdelete = mysqli_query($conn, $query);
               while ($row = $result->fetch_object()) {
               ?>
                 <tr>

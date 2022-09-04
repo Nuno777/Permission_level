@@ -14,7 +14,7 @@ if ($user->num_rows) {
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
         <li>
-          <a class="dropdown-link-item" href="user-profile.html">
+          <a class="dropdown-link-item" href="profile.php">
             <i class="mdi mdi-account-outline"></i>
             <span class="nav-text">My Profile</span>
           </a>
@@ -28,7 +28,11 @@ if ($user->num_rows) {
         </li>
 
         <li class="dropdown-footer">
-          <a class="dropdown-link-item" href="logout.php"> <i class="mdi mdi-logout"></i>Log Out</a>
+          <a class="dropdown-link-item" href="logout.php">
+            <i class="mdi mdi-logout"></i>
+            <span class="nav-text">Log Out</span>
+          </a>
+          
         </li>
       </ul>
     </li>

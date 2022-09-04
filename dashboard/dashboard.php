@@ -6,12 +6,11 @@ if (!isset($_SESSION['authenticated'])) {
 }
 require_once '../conexao.php';
 $query = "SELECT permission from users where email = '{$_SESSION['email']}'";
-$result = mysqli_query($conn, $query);
-$levelperm = mysqli_fetch_assoc($result);
+$perms = mysqli_query($conn, $query);
+$levelperm = mysqli_fetch_assoc($perms);
 if ($levelperm['permission'] == 0) {
-  header('Location: /Permission_level/dashboard/accountSettings.php');
+  header('Location: /Permission_level/dashboard/profile.php');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -48,18 +47,9 @@ if ($levelperm['permission'] == 0) {
             <span class="brand-name">Bank.</span>
           </a>
         </div>
-        <!-- begin sidebar scrollbar -->
-        <div class="sidebar-left" data-simplebar style="height: 100%;">
-          <!-- sidebar menu -->
-          <ul class="nav sidebar-inner" id="sidebar-menu">
-            <li class="active">
-              <a class="sidenav-item-link" href="dashboard.php">
-                <i class="mdi mdi-briefcase-account-outline"></i>
-                <span class="nav-text">Dashboard</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <?php
+        require_once 'sheets/dashboardmenu.php';
+        ?>
       </div>
     </aside>
 
