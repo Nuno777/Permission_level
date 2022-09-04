@@ -14,14 +14,14 @@ if ($user->num_rows) {
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
         <li>
-          <a class="dropdown-link-item" href="profile.php">
+          <a class="dropdown-link-item" href="user_profile.php">
             <i class="mdi mdi-account-outline"></i>
             <span class="nav-text">My Profile</span>
           </a>
         </li>
 
         <li>
-          <a class="dropdown-link-item" href="accountSettings.php">
+          <a class="dropdown-link-item" href="user_accountSettings.php">
             <i class="mdi mdi-settings"></i>
             <span class="nav-text">Account Setting</span>
           </a>

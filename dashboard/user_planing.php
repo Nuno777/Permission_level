@@ -49,7 +49,7 @@ require_once '../conexao.php';
               </a>
             </li>
             <li class="">
-              <a class="sidenav-item-link" href="profile.php">
+              <a class="sidenav-item-link" href="user_profile.php">
                 <i class="mdi mdi-account"></i>
                 <span class="nav-text">Profile</span>
               </a>
@@ -61,7 +61,7 @@ require_once '../conexao.php';
               </a>
             </li>
             <li class="">
-              <a class="sidenav-item-link" href="accountSettings.php">
+              <a class="sidenav-item-link" href="user_accountSettings.php">
                 <i class="mdi mdi-account-settings"></i>
                 <span class="nav-text">Account Setting</span>
               </a>
@@ -118,13 +118,13 @@ require_once '../conexao.php';
             <div class="card-footer card-profile-footer">
               <ul class="nav nav-border-top justify-content-center">
                 <li class="nav-item">
-                  <a class="nav-link" href="profile.php">Profile</a>
+                  <a class="nav-link" href="user_profile.php">Profile</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="#">Planing</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="accountSettings.php">Settings</a>
+                  <a class="nav-link " href="user_accountSettings.php">Settings</a>
                 </li>
               </ul>
             </div>

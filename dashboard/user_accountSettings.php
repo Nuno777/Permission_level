@@ -107,13 +107,13 @@ if (isset($_POST["updateAccount"])) {
               </a>
             </li>
             <li class="">
-              <a class="sidenav-item-link" href="profile.php">
+              <a class="sidenav-item-link" href="user_profile.php">
                 <i class="mdi mdi-account"></i>
                 <span class="nav-text">Profile</span>
               </a>
             </li>
             <li class="">
-              <a class="sidenav-item-link" href="planing.php">
+              <a class="sidenav-item-link" href="user_planing.php">
                 <i class="mdi mdi-account-star"></i>
                 <span class="nav-text">Account Planing</span>
               </a>
@@ -186,10 +186,10 @@ if (isset($_POST["updateAccount"])) {
               <div class="card-footer card-profile-footer">
                 <ul class="nav nav-border-top justify-content-center">
                   <li class="nav-item">
-                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="user_profile.php">Profile</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="planing.php">Planing</a>
+                    <a class="nav-link" href="user_planing.php">Planing</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" href="#">Settings</a>

@@ -9,7 +9,7 @@ $query = "SELECT permission from users where email = '{$_SESSION['email']}'";
 $perms = mysqli_query($conn, $query);
 $levelperm = mysqli_fetch_assoc($perms);
 if ($levelperm['permission'] == 0) {
-  header('Location: /Permission_level/dashboard/profile.php');
+  header('Location: /Permission_level/dashboard/user_profile.php');
 }
 ?>
 <!DOCTYPE html>
