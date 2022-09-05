@@ -138,7 +138,7 @@ require_once '../conexao.php';
                                         <i class="mdi mdi-account-plus-outline"></i>
                                     </div>
                                     <div class="text-left">
-                                        <span class="h2 d-block">Ex</span>
+                                        <span class="h4 d-block">Ex</span>
                                         <p>Ex</p>
                                     </div>
                                 </div>
@@ -151,8 +151,16 @@ require_once '../conexao.php';
                                         <i class="mdi mdi-table-edit"></i>
                                     </div>
                                     <div class="text-left">
-                                        <span class="h2 d-block">Ex</span>
-                                        <p>Ex</p>
+                                        <?php
+                                        $query = "SELECT plan FROM users ORDER BY id";
+                                        $plan = mysqli_query($conn, $query);
+                                        if ($plan->num_rows) {
+                                            $row = $plan->fetch_object();
+                                            $plan = $row->plan;
+                                        }
+                                        ?>
+                                        <span class="h4 d-block">Plan: <?php echo $plan?></span>
+                                        <a href="user_planing.php">Change Plan</a>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +172,7 @@ require_once '../conexao.php';
                                         <i class="mdi mdi-content-save-edit-outline"></i>
                                     </div>
                                     <div class="text-left">
-                                        <span class="h2 d-block">Ex</span>
+                                        <span class="h4 d-block">Ex</span>
                                         <p>Ex</p>
                                     </div>
                                 </div>
@@ -177,7 +185,7 @@ require_once '../conexao.php';
                                         <i class="mdi mdi-bell"></i>
                                     </div>
                                     <div class="text-left">
-                                        <span class="h2 d-block">Ex</span>
+                                        <span class="h4 d-block">Ex</span>
                                         <p>Ex</p>
                                     </div>
                                 </div>

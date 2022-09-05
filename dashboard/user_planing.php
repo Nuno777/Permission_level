@@ -152,7 +152,7 @@ require_once '../conexao.php';
                         </div>
                         <div class="card-body d-flex flex-column" style="min-height: 350px">
                           <ul class="d-flex flex-column align-items-center">
-                            <li class="h2 text-primary mb-5">$0.00 <span class="text-color h3">/ m</span></li>
+                            <li class="h2 text-primary mb-5">0.00€ <span class="text-color h3">/ m</span></li>
                             <li class="mb-3 text-dark font-weight-bold">
                               <i class="mdi mdi-check text-primary"></i>
                               1 User Acount
@@ -183,7 +183,7 @@ require_once '../conexao.php';
                         </div>
                         <div class="card-body d-flex flex-column" style="min-height: 350px">
                           <ul class="d-flex flex-column align-items-center">
-                            <li class="h2 text-primary mb-5">$50.00 <span class="text-color h3">/ m</span></li>
+                            <li class="h2 text-primary mb-5">15.00€ <span class="text-color h3">/ m</span></li>
                             <li class="mb-3 text-dark font-weight-bold">
                               <i class="mdi mdi-check text-primary"></i>
                               1 User Acount
@@ -219,7 +219,7 @@ require_once '../conexao.php';
                         </div>
                         <div class="card-body d-flex flex-column" style="min-height: 350px">
                           <ul class="d-flex flex-column align-items-center">
-                            <li class="h2 text-primary mb-5">$70.00 <span class="text-color h3">/ m</span></li>
+                            <li class="h2 text-primary mb-5">25.00€ <span class="text-color h3">/ m</span></li>
                             <li class="mb-3 text-dark font-weight-bold">
                               <i class="mdi mdi-check text-primary"></i>
                               1 User Acount
