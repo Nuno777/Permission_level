@@ -138,7 +138,7 @@ require_once '../conexao.php';
                                         <i class="mdi mdi-account-plus-outline"></i>
                                     </div>
                                     <div class="text-left">
-                                        <span class="h4 d-block">Ex</span>
+                                        <span class="h4 d-block">Money</span>
                                         <p>Ex</p>
                                     </div>
                                 </div>
