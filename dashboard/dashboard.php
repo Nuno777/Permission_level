@@ -172,10 +172,10 @@ if ($levelperm['permission'] == 0) {
               <table class="table text-center">
                 <thead class="text-uppercase thead-dark">
                   <tr>
+                    <th scope="col">Permission</th>
                     <th scope="col">Email</th>
                     <th scope="col">Name</th>
                     <th scope="col">Planing</th>
-                    <th scope="col">Permission</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -185,10 +185,10 @@ if ($levelperm['permission'] == 0) {
                   while ($row = $result->fetch_object()) {
                   ?>
                     <tr>
+                      <td><?php echo $row->permission ?></td>
                       <td><?php echo $row->email ?></td>
                       <td><?php echo $row->nome ?></td>
                       <td><?php echo $row->plan ?></td>
-                      <td><?php echo $row->permission ?></td>
                     </tr>
                   <?php
                   }

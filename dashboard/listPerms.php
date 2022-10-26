@@ -96,9 +96,9 @@ if ($levelperm['permission'] == 0) {
           <table class="table table text-center">
             <thead class="text-uppercase thead-dark">
               <tr>
+                <th scope="col">Permission</th>
                 <th scope="col">Email</th>
                 <th scope="col">Name</th>
-                <th scope="col">Permission</th>
                 <th scope="col">Edit</th>
               </tr>
             </thead>
@@ -109,9 +109,9 @@ if ($levelperm['permission'] == 0) {
               while ($row = $result->fetch_object()) {
               ?>
                 <tr>
+                  <td><?php echo $row->permission ?></td>
                   <td><?php echo $row->email ?></td>
                   <td><?php echo $row->nome ?></td>
-                  <td><?php echo $row->permission ?></td>
                   <td><a href='updatePerms.php?id=<?php echo $row->id ?>' class='text-primary' name='update'><i class="mdi mdi-square-edit-outline"></i></a></td>
                   <!-- <td><a data-toggle='modal' data-target='#updatePerms<?php echo $row->id ?>' class='text-primary' name='edit'> <i class="mdi mdi-square-edit-outline"></i></a></td> -->
                 </tr>
