@@ -33,7 +33,7 @@ require_once '../conexao.php';
             <div id="sidebar" class="sidebar sidebar-with-footer">
                 <!-- Aplication Brand -->
                 <div class="app-brand">
-                    <a>
+                    <a href="../index.php">
                         <img src="assets/images/logo.png" alt="Mono">
                         <span class="brand-name">Bank.</span>
                     </a>
@@ -159,7 +159,7 @@ require_once '../conexao.php';
                                             $plan = $row->plan;
                                         }
                                         ?>
-                                        <span class="h4 d-block">Plan: <?php echo $plan?></span>
+                                        <span class="h4 d-block">Plan: <?php echo $plan ?></span>
                                         <a href="user_planing.php">Change Plan</a>
                                     </div>
                                 </div>

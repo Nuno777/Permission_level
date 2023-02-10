@@ -42,7 +42,7 @@ if ($levelperm['permission'] == 0) {
       <div id="sidebar" class="sidebar sidebar-with-footer">
         <!-- Aplication Brand -->
         <div class="app-brand">
-          <a>
+          <a href="../index.php">
             <img src="assets/images/logo.png" alt="Mono">
             <span class="brand-name">Bank.</span>
           </a>
