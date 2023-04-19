@@ -52,7 +52,7 @@ if (isset($_POST["updateAccount"])) {
               "type" => "danger",
             );
           }
-          header("Location: accountSettings.php");
+          header("Location: /Permission_level/dashboard/accountSettings.php");
           exit(0);
         } else {
           $code = $conn->errno; // error code of the most recent operation
